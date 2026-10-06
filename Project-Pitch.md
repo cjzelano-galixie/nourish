@@ -3,20 +3,20 @@
 ## Elevator Pitch Outline
 
 1. **The Problem:** What friction or gap exists for users right now?
-   - The problem is that counting apps use out-of-date caloric and nutritional information or do not have the products/food/recipes available so they have to be manually inputted by the user. They block features that should be free to everyone who wants to take real control of their health. Lastly, they do not encourage or build confidence in their users steps through their food journeys.
+   - The problem is that counting apps use out-of-date caloric and nutritional information or do not have the products/food/recipes available so they have to be manually inputted by the user. They block features that should be free to everyone who wants to take real control of their health. Lastly, they do not encourage or build confidence in their users steps through their food journey.
 
 2. **The Solution:** What is Nourish, and how does it fix that problem?
-   - Nourish is a tool to use to ground yourself in realistic numbers, it is a tool to give you back control of your food journeys. Powered by Gemini AI, it converts meal entries and photos into accurate nutritional estimates. Use it to monitor, track, and have a cheerleader, who can encourage you along your choices and pathway to making better choices for your nutrition.
+   - Nourish is a tool to use to ground yourself in realistic numbers, it is a tool to give you back control of your food journey. Powered by Gemini AI, it converts meal entries and photos into accurate nutritional estimates. Use it to monitor, track, and have a cheerleader, who can encourage you along your choices and pathway to making better choices for your nutrition.
 
 3. **Key Value Prop** What makes Nourish distinct or delightful to use?
    - The most distinct thing about this app is the ease of use. Type what you ate, it thinks for you, approve the estimates, monitor the data, that's it. The AI drafts the calculations, and the user approves the estimates. It removes friction and paywalls for basic health tracking.
 
 4. **Target User** Who is this built for?
-   - The everyday individual who is looking to take charge of their food journeys without having to spend a fortune. This user appreciates simplicity and is looking for a supportive, judgement free experience. They are searching for a tool that brings genuine encouragement to their health goals all the while providing clear, reliable data.
+   - The everyday individual who is looking to take charge of their food journey without having to spend a fortune. This user appreciates simplicity and is looking for a supportive, judgement free experience. They are searching for a tool that brings genuine encouragement to their health goals all the while providing clear, reliable data.
 
 ## Elevator Pitch
 
-Nourish is a useful tool for the everyday individual looking to take charge of their food journeys with realistic data. Accomplished through a simple chat, Gemini AI converts meal entries and photos into accurate nutritional estimates. It allows the user to approve estimates and monitor data without having to spend a fortune. If you're searching for a tool that brings genuine encouragement to your health goals while providing clear and reliable data, Nourish is the solution.
+Nourish is a useful tool for the everyday individual looking to take charge of their food journey with realistic data. Accomplished through a simple chat, Gemini AI converts meal entries and photos into accurate nutritional estimates. It allows the user to approve estimates and monitor data without having to spend a fortune. If you're searching for a tool that brings genuine encouragement to your health goals while providing clear and reliable data, Nourish is the solution.
 
 ## Stretch Goals
 

@@ -129,11 +129,11 @@ Nourish is a useful tool for the everyday individual looking to take charge of t
 
 ![Login Page](./imgs-wf/login-page.png)
 
-![Register/Create profile page]([imgs-wf\registration-page.png](https://github.com/cjzelano-galixie/nourish/blob/main/imgs-wf/registration-page.png)) ![TDEE Calculation Confirmation]([imgs-wf\tdee-calc.png](https://github.com/cjzelano-galixie/nourish/blob/main/imgs-wf/tdee-calc.png))
+![Register/Create profile page](./imgs-wf/registration-page.png) ![TDEE Calculation Confirmation](./imgs-wf/tdee-calc.png)
 
-![AI Chat page collapsed progress bars]([imgs-wf\AI-chat-page2.png](https://github.com/cjzelano-galixie/nourish/blob/main/imgs-wf/AI-chat-page2.png)) ![AI Chat page with theme and drop-down for quick progress tracker]([imgs-wf\AI-chat-page.png](https://github.com/cjzelano-galixie/nourish/blob/main/imgs-wf/AI-chat-page.png))
+![AI Chat page collapsed progress bars](./imgs-wf/AI-chat-page2.png) ![AI Chat page with theme and drop-down for quick progress tracker](./imgs-wf/AI-chat-page.png)
 
-![Analytics Page]([imgs-wf\analytics-page.png](https://github.com/cjzelano-galixie/nourish/blob/main/imgs-wf/analytics-page.png))
+![Analytics Page](./imgs-wf.analytics-page.png)
 
 ### User Story for MVP Feature
 

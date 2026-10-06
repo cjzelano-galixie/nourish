@@ -133,7 +133,7 @@ Nourish is a useful tool for the everyday individual looking to take charge of t
 
 ![AI Chat page collapsed progress bars](./imgs-wf/AI-chat-page2.png) ![AI Chat page with theme and drop-down for quick progress tracker](./imgs-wf/AI-chat-page.png)
 
-![Analytics Page](./imgs-wf.analytics-page.png)
+![Analytics Page](./imgs-wf/analytics-page.png)
 
 ### User Story for MVP Feature
 

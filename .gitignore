@@ -1,0 +1,6 @@
+#Ignore specific folders
+wireframe/
+node_modules/
+
+#Ignore specific files
+.env

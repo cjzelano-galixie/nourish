@@ -8,6 +8,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "migrate:create": "node-pg-migrate create",
+    "migrate:up": "node-pg-migrate up",
+    "migrate:down": "node-pg-migrate down",
     "db:schema": "psql -d nourish -f src/db/schema.sql",
     "db:seed": "node --env-file=.env src/db/seed.js",
     "db:reset": "npm run db:schema && npm run db:seed"

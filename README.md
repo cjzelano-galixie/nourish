@@ -31,6 +31,7 @@ nourish/
 
 ## ERD
 ```mermaid
+erDiagram
     users {
         int id PK "SERIAL"
         varchar email "UNIQUE"

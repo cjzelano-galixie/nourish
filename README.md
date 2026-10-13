@@ -1,8 +1,10 @@
 # 🌱 Nourish
+
 Nourish is a useful tool for the everyday individual looking to take charge of their food journey with realistic data. Accomplished through a simple chat, Gemini AI converts meal entries and photos into accurate nutritional estimates. It allows the user to approve estimates and monitor data without having to spend a fortune. If you're searching for a tool that brings genuine encouragement to your health goals while providing clear and reliable data, Nourish is the solution.
 
 ## Project Directory
-``` text
+
+```text
 nourish/
 ├── .env                       # Environment variables (DB URI, JWT secret, Gemini API key)
 ├── package.json               # Dependencies & scripts
@@ -26,10 +28,11 @@ nourish/
     ├── App.jsx                # Main React App component
     ├── main.jsx               # React DOM root entry point
     ├── server.js              # Express backend server entry point
-    └── index.css              # Global styles
+    └── App.css              # Global styles
 ```
 
 ## ERD
+
 ```mermaid
 erDiagram
     users {

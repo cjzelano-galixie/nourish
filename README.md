@@ -38,7 +38,7 @@ erDiagram
     users {
         int id PK "SERIAL"
         varchar email "UNIQUE"
-        varchar password_hash
+        varchar password
         timestamp created_at
     }
 

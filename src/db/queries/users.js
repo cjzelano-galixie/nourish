@@ -1,20 +1,25 @@
-import pool from "#db/db";
+import pool from "#db/client";
 import bcrypt from "bcrypt";
 
 export async function createUser(email, password) {
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const {
-    rows: [user],
-  } = await pool.query(
-    `INSERT INTO users
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const {
+      rows: [user],
+    } = await pool.query(
+      `INSERT INTO users
     (email, password)
     VALUES
     ($1, $2)
     RETURNING *
         `,
-    [email, hashedPassword],
-  );
-  return user;
+      [email, hashedPassword],
+    );
+    return user;
+  } catch (err) {
+    console.error("Error in createUser query:", err);
+    throw err;
+  }
 }
 
 export async function getUserByEmailAndPassword(email, password) {

@@ -4,10 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "imports": {
-    "#db/*": "./src/db*"
+    "#app": "./src/app.js",
+    "#middleware/*": "./src/middleware/*.js",
+    "#db/*": "./src/db/*.js",
+    "#utils/*": "./src/utils/*.js",
+    "#api/*": "./src/api/*.js"
   },
   "scripts": {
     "dev": "vite",
+    "server": "node src/server.js",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -24,6 +29,7 @@
     "cors": "^2.8.6",
     "dotenv": "^18.0.7",
     "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.3",
     "node-pg-migrate": "^9.0.0",
     "pg": "^8.23.1",
     "react": "^19.2.8",

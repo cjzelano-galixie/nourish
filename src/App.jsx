@@ -1,6 +1,6 @@
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
-import Layout from "./layout/Layout";
+import Layout from "./components/layout/Layout";
 import { Routes, Route } from "react-router-dom";
 
 export default function App() {

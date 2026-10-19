@@ -74,7 +74,7 @@ router.post(
 router.get("/me", getUserFromToken, async (req, res, next) => {
   try {
     const profile = await getProfileByUserId(req.user.id);
-    res.json(profile);
+    res.status(200).json(profile);
   } catch (err) {
     next(err);
   }

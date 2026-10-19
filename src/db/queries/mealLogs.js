@@ -1,0 +1,144 @@
+import pool from "#db/client";
+
+export async function createMealLogWithNutrients(
+  userId,
+  mealData,
+  nutrientData,
+) {
+  const client = await pool.connect();
+
+  try {
+    await client.query("BEGIN");
+
+    const mealQuery = `
+        INSERT INTO meal_logs (user_id, meal_description, status)
+        VALUES ($1, $2, $3)
+        RETURNING *;`;
+
+    const mealValues = [
+      userId,
+      mealData.mealDescription,
+      mealData.status || "approved",
+    ];
+    const mealResult = await client.query(mealQuery, mealValues);
+    const newMealLog = mealResult.rows[0];
+
+    const nutrientQuery = `
+        INSERT INTO log_nutrients 
+        (meal_log_id, calories, protein, carbs, fat, fiber, sodium, potassium)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        RETURNING *;`;
+
+    const nutrientValues = [
+      newMealLog.id,
+      nutrientData.calories,
+      nutrientData.protein,
+      nutrientData.carbs,
+      nutrientData.fat,
+      nutrientData.fiber,
+      nutrientData.sodium,
+      nutrientData.potassium,
+    ];
+
+    const nutrientResult = await client.query(nutrientQuery, nutrientValues);
+
+    await client.query("COMMIT");
+
+    return {
+      ...newMealLog,
+      nutrients: nutrientResult.rows[0],
+    };
+  } catch (err) {
+    await client.query("ROLLBACK");
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
+export async function getMealLogsByUserId(userId) {
+  try {
+    const query = `
+        SELECT
+        m.id AS meal_id,
+        m.user_id,
+        m.meal_description,
+        m.status,
+        m.logged_at,
+        n.id AS nutrient_id,
+        n.calories,
+        n.protein,
+        n.carbs,
+        n.fat,
+        n.fiber,
+        n.sodium,
+        n.potassium
+        FROM meal_logs m
+        LEFT JOIN log_nutrients n ON m.id = n.meal_log_id
+        WHERE m.user_id = $1
+        ORDER BY m.logged_at DESC;
+        `;
+    const result = await pool.query(query, [userId]);
+    return result.rows;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function getMealLogsById(id) {
+  const {
+    rows: [log],
+  } = await pool.query(
+    `
+    SELECT m.id AS meal_id,
+        m.user_id,
+        m.meal_description,
+        m.status,
+        m.logged_at,
+        n.id AS nutrient_id,
+        n.calories,
+        n.protein,
+        n.carbs,
+        n.fat,
+        n.fiber,
+        n.sodium,
+        n.potassium
+        FROM meal_logs m
+        LEFT JOIN log_nutrients n ON m.id = n.meal_log_id 
+        WHERE m.id = $1`,
+    [id],
+  );
+  if (!log) {
+    const err = new Error(`Log not found for ID ${id}`);
+    err.status(404);
+    throw err;
+  }
+  return log;
+}
+
+export async function updateMealLogById(id) {
+  const {
+    rows: [log],
+  } = await pool.query(
+    `
+    UPDATE meal_logs 
+    SET status = 'approved' 
+    WHERE id = $1 RETURNING *
+    `,
+    [id],
+  );
+  if (!log) {
+    const err = new Error(`Log not found for ID ${id}`);
+    err.status(404);
+    throw err;
+  }
+  return log;
+}
+
+export async function deleteById(id) {
+  const { rows } = await pool.query(
+    `DELETE FROM meal_logs WHERE id = $1 RETURNING *`,
+    [id],
+  );
+  return rows[0] || null;
+}

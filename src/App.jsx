@@ -1,5 +1,5 @@
-import Login from "./auth/Login";
-import Register from "./auth/Register";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
 import Layout from "./layout/Layout";
 import { Routes, Route } from "react-router-dom";
 

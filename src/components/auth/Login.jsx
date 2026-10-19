@@ -25,6 +25,7 @@ export default function Login() {
   return (
     <article className="auth-container">
       <h2>🌱 Nourish</h2>
+      <p>Better Choices. Brighter Days.</p>
       <h1>Welcome Back</h1>
       <form action={tryLogin} className="auth-form">
         <label>

@@ -73,11 +73,7 @@ export default function Register() {
   return (
     <article className="auth-container">
       <h2>🌱 Nourish</h2>
-      <h2>Nutrition shouldn't cost a premium.</h2>
-      <p>
-        Find your daily maintenance baseline. Powered by AI, grounded in real
-        nutrition data
-      </p>
+      <p>Better Choices. Brighter Days.</p>
       {step === 1 ? (
         <form action={tryRegister} className="auth-form">
           <label>

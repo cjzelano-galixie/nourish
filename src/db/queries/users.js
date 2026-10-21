@@ -1,25 +1,28 @@
 import pool from "#db/client";
 import bcrypt from "bcrypt";
+import { handlePgError } from "#utils/pgErrors";
 
 export async function createUser(email, password) {
-  try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const {
-      rows: [user],
-    } = await pool.query(
-      `INSERT INTO users
-    (email, password)
-    VALUES
-    ($1, $2)
-    RETURNING *
-        `,
-      [email, hashedPassword],
-    );
-    return user;
-  } catch (err) {
-    console.error("Error in createUser query:", err);
-    throw err;
-  }
+  const hashedPassword = await bcrypt.hash(password, 10);
+  return handlePgError(
+    async () => {
+      const {
+        rows: [user],
+      } = await pool.query(
+        `INSERT INTO users
+  (email, password)
+  VALUES
+  ($1, $2)
+  RETURNING *
+      `,
+        [email, hashedPassword],
+      );
+      return user;
+    },
+    {
+      uniqueColumns: { email: `An account with email ${email} already exists` },
+    },
+  );
 }
 
 export async function getUserByEmailAndPassword(email, password) {

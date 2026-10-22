@@ -10,6 +10,7 @@ import { createUser } from "#db/queries/users";
 import dataValidation from "#middleware/dataValidation";
 import { calculateNutritionTargets } from "#utils/tdee";
 import getUserFromToken from "#middleware/getUserFromToken";
+import { NotFoundError } from "#utils/errors";
 
 const router = express.Router();
 
@@ -33,7 +34,7 @@ router.post(
     "sex",
     "activityLevel",
   ]),
-  async (req, res) => {
+  async (req, res, next) => {
     try {
       const {
         email,
@@ -65,8 +66,7 @@ router.post(
       const token = createToken({ id: user.id });
       res.status(201).send({ token, profile });
     } catch (err) {
-      console.error("Registration error:", err);
-      res.status(500).json({ err: "Internal Server Error." });
+      next(err);
     }
   },
 );
@@ -74,6 +74,7 @@ router.post(
 router.get("/me", getUserFromToken, async (req, res, next) => {
   try {
     const profile = await getProfileByUserId(req.user.id);
+    if (!profile) throw new NotFoundError("Profile not found.");
     res.status(200).json(profile);
   } catch (err) {
     next(err);
@@ -84,6 +85,8 @@ router.put("/me", getUserFromToken, async (req, res, next) => {
   try {
     const userId = req.user.id;
     const existingProfile = await getProfileByUserId(userId);
+
+    if (!existingProfile) throw new NotFoundError("Profile not found.");
 
     const mergedData = {
       age: req.body.age !== undefined ? req.body.age : existingProfile.age,

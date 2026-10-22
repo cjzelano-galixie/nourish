@@ -8,8 +8,7 @@ import {
   getMealLogsByUserId,
   updateMealLogById,
 } from "#db/queries/mealLogs";
-
-// PUT :id, DELETE :id
+import { NotFoundError, ForbiddenError } from "#utils/errors";
 
 const router = express.Router();
 
@@ -77,6 +76,7 @@ router.get("/", getUserFromToken, async (req, res, next) => {
 router.param("id", async (req, res, next, id) => {
   try {
     const log = await getMealLogsById(id);
+    if (!log) throw new NotFoundError("Meal log not found.");
     req.log = log;
     next();
   } catch (err) {
@@ -87,7 +87,9 @@ router.param("id", async (req, res, next, id) => {
 router.put("/:id", getUserFromToken, async (req, res, next) => {
   try {
     if (req.log.user_id !== req.user.id)
-      return res.status(403).send("Unauthorized.");
+      throw new ForbiddenError(
+        "You are not authorized to modify this meal log.",
+      );
     const update = await updateMealLogById(req.params.id);
     res.status(200).json(update);
   } catch (err) {
@@ -98,8 +100,10 @@ router.put("/:id", getUserFromToken, async (req, res, next) => {
 router.delete("/:id", getUserFromToken, async (req, res, next) => {
   try {
     if (req.log.user_id !== req.user.id)
-      return res.status(403).send("Unauthorized.");
-    const deletedLog = await deleteById(req.params.id);
+      throw new ForbiddenError(
+        "You are not authorized to delete this meal log.",
+      );
+    await deleteById(req.params.id);
     res.status(204).send();
   } catch (err) {
     next(err);

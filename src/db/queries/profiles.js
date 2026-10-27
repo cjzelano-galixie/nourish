@@ -1,4 +1,5 @@
 import pool from "#db/client";
+import { handlePgError } from "#utils/pgErrors";
 
 export async function createProfile(userId, profileData) {
   const {
@@ -16,45 +17,51 @@ export async function createProfile(userId, profileData) {
     targetCarbs,
     targetFiber,
   } = profileData;
-  const {
-    rows: [profile],
-  } = await pool.query(
-    `
-        INSERT INTO profiles
-        (user_id,
-  age,
-  weight,
-  height,
-  sex,
-  activity_level,
-  calculated_tdee,
-  target_calories,
-  target_protein,
-  target_potassium,
-  target_sodium,
-  target_fat,
-  target_carbs,
-  target_fiber) 
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
-  RETURNING *`,
-    [
-      userId,
-      age,
-      weight,
-      height,
-      sex,
-      activityLevel,
-      calculatedTdee,
-      targetCalories,
-      targetProtein,
-      targetPotassium,
-      targetSodium,
-      targetFat,
-      targetCarbs,
-      targetFiber,
-    ],
+
+  return handlePgError(
+    async () => {
+      const {
+        rows: [profile],
+      } = await pool.query(
+        `
+          INSERT INTO profiles
+          (user_id,
+    age,
+    weight,
+    height,
+    sex,
+    activity_level,
+    calculated_tdee,
+    target_calories,
+    target_protein,
+    target_potassium,
+    target_sodium,
+    target_fat,
+    target_carbs,
+    target_fiber) 
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+    RETURNING *`,
+        [
+          userId,
+          age,
+          weight,
+          height,
+          sex,
+          activityLevel,
+          calculatedTdee,
+          targetCalories,
+          targetProtein,
+          targetPotassium,
+          targetSodium,
+          targetFat,
+          targetCarbs,
+          targetFiber,
+        ],
+      );
+      return profile;
+    },
+    { uniqueColumns: { user_id: `A profile already exists for this user` } },
   );
-  return profile;
 }
 
 export async function getProfileByUserId(userId) {
@@ -65,11 +72,6 @@ export async function getProfileByUserId(userId) {
     WHERE user_id = $1`,
     [userId],
   );
-  if (!profile) {
-    const err = new Error(`Profile not found for user ID ${userId}`);
-    err.status = 404;
-    throw err;
-  }
   return profile;
 }
 

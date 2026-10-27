@@ -14,6 +14,9 @@ import { NotFoundError } from "#utils/errors";
 
 const router = express.Router();
 
+/**
+ * Handles user registration by validating credentials, calculating nutrition targets, creating a user profile, and returning an authentication token.
+ */
 router.post(
   "/register",
   requireBody([
@@ -71,6 +74,9 @@ router.post(
   },
 );
 
+/**
+ * Retrieves the profile details for the currently authenticated user.
+ */
 router.get("/me", getUserFromToken, async (req, res, next) => {
   try {
     const profile = await getProfileByUserId(req.user.id);
@@ -81,6 +87,9 @@ router.get("/me", getUserFromToken, async (req, res, next) => {
   }
 });
 
+/**
+ * Updates the authenticated user's profile and recalculates their nutritional targets based on any modified physical data.
+ */
 router.put("/me", getUserFromToken, async (req, res, next) => {
   try {
     const userId = req.user.id;

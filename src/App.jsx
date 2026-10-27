@@ -1,5 +1,6 @@
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import ChatContainer from "./components/chat/ChatContainer";
 import Layout from "./components/layout/Layout";
 import { Routes, Route } from "react-router-dom";
 
@@ -10,6 +11,7 @@ export default function App() {
         <Route index element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/ai" element={<ChatContainer />} />
       </Route>
     </Routes>
   );

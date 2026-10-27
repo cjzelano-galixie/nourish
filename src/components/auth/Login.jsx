@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useAuth } from "./AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
+/**
+ * Renders the user login form, handles authentication submission, and manages error state during sign-in.
+ */
 export default function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -15,8 +18,8 @@ export default function Login() {
     const password = formData.get("password");
     try {
       await login({ email, password });
-      console.log("Login successful! Token Saved");
-      //   navigate("/chat");
+      // console.log("Login successful! Token Saved");
+      navigate("/ai");
     } catch (err) {
       setError(err.message);
     }

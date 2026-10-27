@@ -51,6 +51,14 @@ export async function createMealLogWithNutrients(
         nutrients: nutrientResult.rows[0],
       };
     } catch (err) {
+      console.error(
+        "DB INSERT ERROR:",
+        err.message,
+        "| code:",
+        err.code,
+        "| detail:",
+        err.detail,
+      );
       await client.query("ROLLBACK");
       throw err;
     } finally {

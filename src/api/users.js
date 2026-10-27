@@ -6,6 +6,9 @@ import { UnauthorizedError } from "#utils/errors";
 
 const router = express.Router();
 
+/**
+ * Authenticates a user using their email and password credentials, returning a signed JWT token upon successful verification[cite: 7].
+ */
 router.post(
   "/login",
   requireBody(["email", "password"]),

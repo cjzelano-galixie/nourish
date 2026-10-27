@@ -1,0 +1,229 @@
+/* --- Global Reset & Theme --- */
+:root {
+  --bg-color: #faf6f5;
+  --card-bg: #ffffff;
+  --primary-color: #4a2e35;
+  --accent-color: #2e6f40;
+  --input-bg: #fcf1f2;
+  --border-color: #e6d3d5;
+  --text-main: #2d2326;
+  --error-color: #b33939;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- Authentication & Wizard Card Container --- */
+.auth-container {
+  background-color: var(--card-bg);
+  width: 100%;
+  max-width: 440px;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(74, 46, 53, 0.08);
+  border: 1px solid var(--border-color);
+  box-sizing: border-box;
+}
+
+.auth-container h2 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.auth-container p {
+  color: #6b585c;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.auth-container h2:first-of-type {
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* --- Form Layout & Inputs --- */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.auth-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+.auth-form input[type="email"],
+.auth-form input[type="password"],
+.auth-form input[type="number"],
+.auth-form input[type="text"],
+.auth-form select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+  font-size: 1rem;
+  color: var(--text-main);
+  box-sizing: border-box;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(74, 46, 53, 0.1);
+}
+
+/* --- Unit Group Selectors (Weight & Height Side-by-Side) --- */
+.input-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.input-group input {
+  flex: 2;
+}
+
+.input-group select {
+  flex: 1;
+}
+
+/* --- Radio Group & Fieldsets --- */
+.radio-group {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  background-color: var(--input-bg);
+  margin: 0;
+}
+
+.radio-group legend {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--primary-color);
+  padding: 0 0.25rem;
+}
+
+.radio-group div {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.4rem;
+}
+
+.radio-group label {
+  font-weight: normal;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* --- Buttons --- */
+button[type="submit"],
+.baseline-review-card button {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.85rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    transform 0.1s;
+  margin-top: 0.5rem;
+}
+
+button[type="submit"]:hover,
+.baseline-review-card button:hover {
+  background-color: #382127;
+}
+
+button[type="submit"]:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* --- Links & Alerts --- */
+.auth-link-text {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.auth-link-text a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-link-text a:hover {
+  text-decoration: underline;
+}
+
+[role="alert"] {
+  background-color: #f8d7da;
+  color: var(--error-color);
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/* --- Step 2: Baseline Review Card --- */
+.baseline-review-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.baseline-review-card h2 {
+  color: var(--primary-color);
+  margin-bottom: 0.2rem;
+}
+
+.baseline-review-card p {
+  background-color: var(--input-bg);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  margin: 0;
+  font-size: 0.95rem;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid var(--border-color);
+}

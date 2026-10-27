@@ -12,6 +12,9 @@ import { NotFoundError, ForbiddenError } from "#utils/errors";
 
 const router = express.Router();
 
+/**
+ * Handles POST requests to create a new meal log and its associated nutrient metrics for the authenticated user.
+ */
 router.post(
   "/",
   getUserFromToken,
@@ -64,6 +67,9 @@ router.post(
   },
 );
 
+/**
+ * Retrieves all meal logs associated with the currently authenticated user.
+ */
 router.get("/", getUserFromToken, async (req, res, next) => {
   try {
     const mealLog = await getMealLogsByUserId(req.user.id);
@@ -73,6 +79,9 @@ router.get("/", getUserFromToken, async (req, res, next) => {
   }
 });
 
+/**
+ * Parameter middleware to fetch a specific meal log by ID and attach it to the request object or throw a 404 error if not found.
+ */
 router.param("id", async (req, res, next, id) => {
   try {
     const log = await getMealLogsById(id);
@@ -84,6 +93,9 @@ router.param("id", async (req, res, next, id) => {
   }
 });
 
+/**
+ * Updates a specific meal log status (e.g., pending to approved) after verifying user ownership.
+ */
 router.put("/:id", getUserFromToken, async (req, res, next) => {
   try {
     if (req.log.user_id !== req.user.id)
@@ -97,6 +109,9 @@ router.put("/:id", getUserFromToken, async (req, res, next) => {
   }
 });
 
+/**
+ * Deletes a specific meal log after verifying that the authenticated user owns the resource.
+ */
 router.delete("/:id", getUserFromToken, async (req, res, next) => {
   try {
     if (req.log.user_id !== req.user.id)

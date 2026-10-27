@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useAuth } from "./AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
+/**
+ * Renders the multi-step user registration and profile creation form, handling unit conversions, validation, and baseline TDEE review.
+ */
 export default function Register() {
   const navigate = useNavigate();
   const { register } = useAuth();
@@ -173,7 +176,7 @@ export default function Register() {
           <p>Fiber: {profile?.target_fiber}g</p>
           <p>Sodium: {profile?.target_sodium}mg</p>
           <p>Potassium: {profile?.target_potassium}mg</p>
-          <button onClick={() => navigate("/chat")}>
+          <button onClick={() => navigate("/ai")}>
             Let's get started!
           </button>{" "}
           {error && <p role="alert">{error}</p>}

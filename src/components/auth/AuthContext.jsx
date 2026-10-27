@@ -1,9 +1,13 @@
+import { AppError, BadRequestError, UnauthorizedError } from "#utils/errors";
 import { createContext, useContext, useState } from "react";
 
 const API = import.meta.env.VITE_API;
 
 const AuthContext = createContext();
 
+/**
+ * Provides authentication state, token management, and auth actions (login, register, logout) to child components.
+ */
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem("token"));
 
@@ -16,7 +20,7 @@ export function AuthProvider({ children }) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw Error(errorText || "Registration failed");
+      throw new BadRequestError(errorText || "Registration failed");
     }
 
     const result = await response.json();
@@ -34,7 +38,7 @@ export function AuthProvider({ children }) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw Error(errorText || "Invalid email or password");
+      throw new UnauthorizedError(errorText || "Invalid email or password");
     }
 
     const tokenText = await response.text();
@@ -51,8 +55,11 @@ export function AuthProvider({ children }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
+/**
+ * Custom hook to access authentication context values and methods within components.
+ */
 export function useAuth() {
   const context = useContext(AuthContext);
-  if (!context) throw Error("useAuth must be used within AuthProvider");
+  if (!context) throw new AppError("useAuth must be used within AuthProvider");
   return context;
 }

@@ -1,6 +1,22 @@
 # 🌱 Nourish
 
+**Better choices. Brighter days**
+
 Nourish is a useful tool for the everyday individual looking to take charge of their food journey with realistic data. Accomplished through a simple chat, Gemini AI converts meal entries and photos into accurate nutritional estimates. It allows the user to approve estimates and monitor data without having to spend a fortune. If you're searching for a tool that brings genuine encouragement to your health goals while providing clear and reliable data, Nourish is the solution.
+
+## Core Distinguishing Features
+
+- **Conversational AI Meal Logging:** Type or describe what you ate naturally (e.g., "I had two scrambled eggs and a piece of toast with butter"), and let Gemini instantly parse and structure the nutrition data.
+- **Brand-Aligned, Judgment-Free Tone:** Designed with an empathetic, supportive persona that celebrates consistency and effort rather than policing macros or using food moralizing.
+- **Pending Log Approval Workflow:** AI-parsed meals are saved as "pending" records containing core macros (calories, protein, carbs, fat, fiber, sodium, potassium) and a warm, personalized encouraging note for user verification.
+- **Comprehensive Analytics & TDEE Tracking:** Built-in calculation utilities, profile management, and dashboard visualization tools to monitor ongoing health goals.
+
+## Tech Stack
+
+- **Frontend:** React, Vite, JavaScript, CSS (Custom Design System tokens based on the Nourish Brand Book)
+- **Backend:** Node.js, Express.js REST API AI Integration: Google Gen AI SDK (`@google/genai`, utilizing `gemini-3.8-flash` with strict JSON schema response configuration)
+- **Database:** PostgreSQL with custom SQL migration schemas and query layers
+- **Authentication:** JSON Web Tokens (JWT) with secure middleware verification
 
 ## Project Directory
 
@@ -83,3 +99,17 @@ erDiagram
     users ||--o{ meal_logs : "creates"
     meal_logs ||--|| log_nutrients : "contains"
 ```
+
+## Getting Started
+
+1. **Clone the repository:**
+   git clone https://github.com/cjzelano-galixie/nourish.git
+   cd nourish
+2. **Install dependencies:**
+   `npm install`
+3. **Configure environment variables:**
+   Create a `.env` file in the root directory and supply your PostgreSQL connection string, JWT secret, and `GEMINI_API_KEY`.
+4. **Run database migrations:**
+   Execute the setup scripts in `db/schema.sql` against your PostgreSQL instance.
+5. **Start the development server:**
+   `npm run dev`

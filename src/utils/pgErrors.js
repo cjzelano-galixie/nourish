@@ -1,46 +1,44 @@
-import { BadRequestError } from "./errors";
+import { BadRequestError } from "#utils/errors";
 
-export function handlePgError(err) {
-  if (!err.code) {
-    throw err;
+export async function handlePgError(fn, options = {}) {
+  try {
+    return await fn();
+  } catch (err) {
+    throw translatePgError(err, options);
   }
+}
 
+function translatePgError(err, { uniqueColumns = {} } = {}) {
   switch (err.code) {
     case "23505": {
-      const field = extractFieldFromDetail(err.detail);
-      const message = field
-        ? `${field} already exists.`
-        : `A record with this data already exists.`;
-      throw new BadRequestError(message);
-    }
-
-    case "23503": {
-      throw new BadRequestError(
-        `This operation references a record that does not exist or is still linked elsewhere,`,
+      const column = extractColumn(err.detail);
+      if (column && uniqueColumns[column]) {
+        return new BadRequestError(uniqueColumns[column]);
+      }
+      return new BadRequestError(
+        column
+          ? `${column.charAt(0).toUpperCase() + column.slice(1)} already exists.`
+          : "A record with this data already exists.",
       );
     }
-
-    case "23502": {
-      const field = err.column || "unknown";
-      throw new BadRequestError(`Missing required field: ${field}.`);
-    }
-
-    case "23514": {
-      throw new BadRequestError(
-        `The data provided violates a database check contstraint`,
+    case "23503":
+      return new BadRequestError(
+        "This operation references a record that does not exist or is still linked elsewhere.",
       );
-    }
-
+    case "23502":
+      return new BadRequestError(
+        `Missing required field: ${err.column || "unknown"}.`,
+      );
+    case "23514":
+      return new BadRequestError(
+        "The data provided violates a database check constraint.",
+      );
     default:
-      throw err;
+      return err;
   }
+}
 
-  function extractFieldFromDetail(detail) {
-    if (!detail) return null;
-    const match = detail.match(/Key (.#?)=/);
-    if (match && match[1]) {
-      return match[1].charAt(0).toUpperCase() + match[1].slice(1);
-    }
-    return null;
-  }
+function extractColumn(detail) {
+  const match = detail?.match(/Key \(([^)]+)\)=/);
+  return match ? match[1] : null;
 }

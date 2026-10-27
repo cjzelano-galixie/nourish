@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import profilesRouter from "#api/profiles";
 import usersRouter from "#api/users";
+import mealsRouter from "#api/mealLogs";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/users", usersRouter);
 app.use("/api/profiles", profilesRouter);
+app.use("/api/logs", mealsRouter);
 
 app.use((req, res) => {
   res.status(404).json({ error: `Route not found: ${req.method} ${req.url}` });

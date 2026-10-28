@@ -11,8 +11,24 @@ import dataValidation from "#middleware/dataValidation";
 import { calculateNutritionTargets } from "#utils/tdee";
 import getUserFromToken from "#middleware/getUserFromToken";
 import { NotFoundError } from "#utils/errors";
+import profileRanges from "#middleware/profileRanges";
 
 const router = express.Router();
+
+function withCalorieInfo(profile) {
+  const { targetCalories: recommended } = calculateNutritionTargets({
+    age: profile.age,
+    weight: profile.weight,
+    height: profile.height,
+    sex: profile.sex,
+    activityLevel: profile.activity_level,
+  });
+  return {
+    ...profile,
+    recommended_calories: recommended,
+    uses_custom_calories: Number(profile.targetCalories) !== recommended,
+  };
+}
 
 /**
  * Handles user registration by validating credentials, calculating nutrition targets, creating a user profile, and returning an authentication token.
@@ -37,6 +53,7 @@ router.post(
     "sex",
     "activityLevel",
   ]),
+  profileRanges,
   async (req, res, next) => {
     try {
       const {
@@ -81,7 +98,7 @@ router.get("/me", getUserFromToken, async (req, res, next) => {
   try {
     const profile = await getProfileByUserId(req.user.id);
     if (!profile) throw new NotFoundError("Profile not found.");
-    res.status(200).json(profile);
+    res.status(200).json(withCalorieInfo(profile));
   } catch (err) {
     next(err);
   }
@@ -90,10 +107,12 @@ router.get("/me", getUserFromToken, async (req, res, next) => {
 /**
  * Updates the authenticated user's profile and recalculates their nutritional targets based on any modified physical data.
  */
-router.put("/me", getUserFromToken, async (req, res, next) => {
+router.put("/me", getUserFromToken, profileRanges, async (req, res, next) => {
   try {
     const userId = req.user.id;
     const existingProfile = await getProfileByUserId(userId);
+    const existingCustom =
+      withCalorieInfo(existingProfile).uses_custom_calories;
 
     if (!existingProfile) throw new NotFoundError("Profile not found.");
 
@@ -115,7 +134,9 @@ router.put("/me", getUserFromToken, async (req, res, next) => {
       targetCalories:
         req.body.targetCalories !== undefined
           ? req.body.targetCalories
-          : existingProfile.target_calories,
+          : existingCustom
+            ? existingProfile.target_calories
+            : undefined,
     };
 
     const nutritionTargets = calculateNutritionTargets(mergedData);
@@ -137,7 +158,7 @@ router.put("/me", getUserFromToken, async (req, res, next) => {
     };
 
     const updatedProfile = await updateProfile(userId, fieldsToUpdate);
-    res.json(updatedProfile);
+    res.json(withCalorieInfo(updatedProfile));
   } catch (err) {
     next(err);
   }

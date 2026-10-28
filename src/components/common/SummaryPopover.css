@@ -41,6 +41,52 @@
   border-radius: inherit;
   transition: width 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
+
+.meal-list {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #e8e1d3;
+}
+.meal-list h3 {
+  font-size: 14px;
+  margin: 0 0 8px;
+  color: var(--nourish-espresso);
+}
+.meal-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 14px;
+}
+.meal-row button {
+  min-height: 36px;
+  min-width: 36px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--nourish-sage);
+  background: #fff;
+  cursor: pointer;
+}
+.meal-row button:hover {
+  background: #f7f3e9;
+}
+
+.meal-row span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.summary-note {
+  font-size: 14px;
+  color: #7a6657;
+  margin: -4px 0 12px;
+}
+
 @media (max-width: 600px) {
   .summary-panel {
     position: fixed;

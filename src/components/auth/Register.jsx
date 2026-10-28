@@ -17,12 +17,11 @@ export default function Register() {
 
   const tryRegister = async (formData) => {
     setError(null);
-    setIsLoading(true);
 
     const email = formData.get("email");
     const password = formData.get("password");
     const age = formData.get("age");
-    if (age <= 0) {
+    if (age < 14) {
       setError("Please enter a valid age greater than 14.");
       return;
     }
@@ -43,15 +42,16 @@ export default function Register() {
     }
 
     if (weight < 25 || weight > 300) {
-      setError("Please enter a valid weight between 55 lbs and 660 lbs.");
+      setError("Please enter a valid weight");
       return;
     }
 
     if (height < 100 || height > 250) {
-      setError("Please enter a valid height between 3 ft and 8 ft.");
+      setError("Please enter a valid height");
       return;
     }
 
+    setIsLoading(true);
     try {
       const data = await register({
         email,
@@ -63,7 +63,7 @@ export default function Register() {
         activityLevel,
         targetCalories,
       });
-      console.log("Registration successful! Token Saved");
+      // console.log("Registration successful! Token Saved");
       setProfile(data.profile);
       setStep(2);
     } catch (err) {
@@ -177,7 +177,7 @@ export default function Register() {
           <p>Sodium: {profile?.target_sodium}mg</p>
           <p>Potassium: {profile?.target_potassium}mg</p>
           <button onClick={() => navigate("/ai")}>
-            Let's get started!
+            Start logging your first meal →
           </button>{" "}
           {error && <p role="alert">{error}</p>}
         </div>

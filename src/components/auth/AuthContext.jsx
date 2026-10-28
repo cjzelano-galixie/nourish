@@ -1,5 +1,6 @@
 import { AppError, BadRequestError, UnauthorizedError } from "#utils/errors";
-import { createContext, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
+import { WELCOME_KEY } from "#utils/welcome";
 
 const API = import.meta.env.VITE_API;
 
@@ -25,6 +26,7 @@ export function AuthProvider({ children }) {
 
     const result = await response.json();
     localStorage.setItem("token", result.token);
+    localStorage.setItem(WELCOME_KEY, "true");
     setToken(result.token);
     return result;
   };
@@ -46,10 +48,11 @@ export function AuthProvider({ children }) {
     setToken(tokenText);
   };
 
-  const logout = () => {
+  const logout = useCallback(() => {
     localStorage.removeItem("token");
+    localStorage.removeItem(WELCOME_KEY);
     setToken(null);
-  };
+  }, []);
 
   const value = { token, register, login, logout };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

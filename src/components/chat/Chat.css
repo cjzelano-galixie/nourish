@@ -311,3 +311,9 @@
   cursor: not-allowed;
   box-shadow: none;
 }
+
+.meal-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}

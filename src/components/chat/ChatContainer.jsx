@@ -3,7 +3,8 @@ import "./Chat.css";
 import ChatFeed from "./ChatFeed";
 import ChatInput from "./ChatInput";
 import { aiChatMessage } from "../../services/aiService";
-import { approveLog } from "../../services/logService";
+import { approveLog, deleteLog } from "../../services/logService";
+import { useOutletContext } from "react-router-dom";
 
 /**
  * Manages the core conversational chat state, API submissions to Gemini, meal log approvals, loading indicators, and error handling.
@@ -13,6 +14,7 @@ export default function ChatContainer() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [lastMessageText, setLastMessageText] = useState("");
+  const { refreshLogs } = useOutletContext();
 
   const handleSendMessage = async (text) => {
     setError(null);
@@ -39,6 +41,7 @@ export default function ChatContainer() {
           fiber: pendingLog.nutrients?.fiber,
           sodium: pendingLog.nutrients?.sodium,
           potassium: pendingLog.nutrients?.potassium,
+          caloriesBurned: pendingLog.calories_burned,
         },
         encouragingNote:
           pendingLog.encouragingNote || "Solid choice for your daily energy!",
@@ -55,6 +58,7 @@ export default function ChatContainer() {
   const handleApproveMeal = async (meal) => {
     try {
       await approveLog(meal.id);
+      await refreshLogs();
       setMessages((prev) =>
         prev.map((msg) =>
           msg.meal && msg.meal.id === meal.id
@@ -64,6 +68,15 @@ export default function ChatContainer() {
       );
     } catch (err) {
       setError(err.message || "Failed to approve meal log.");
+    }
+  };
+
+  const handleDiscardMeal = async (meal) => {
+    try {
+      await deleteLog(meal.id);
+      setMessages((prev) => prev.filter((m) => m.meal?.id !== meal.id));
+    } catch (err) {
+      setError(err.message || "Failed to discard meal.");
     }
   };
 
@@ -79,6 +92,7 @@ export default function ChatContainer() {
         messages={messages}
         isLoading={isLoading}
         onApproveMeal={handleApproveMeal}
+        onDiscardMeal={handleDiscardMeal}
       />
       {error && (
         <div className="chat-error-banner" role="alert">

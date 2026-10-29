@@ -2,6 +2,7 @@ import express from "express";
 import requireBody from "#middleware/requireBody";
 import getUserFromToken from "#middleware/getUserFromToken";
 import { createMealLogWithNutrients } from "#db/queries/mealLogs";
+import { getProfileByUserId } from "#db/queries/profiles";
 
 const router = express.Router();
 
@@ -14,18 +15,24 @@ router.post(
       const { message } = req.body;
       const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
       const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`;
+      const profile = await getProfileByUserId(req.user.id);
+      const weightLine = profile?.weight
+        ? `The user weighs about ${Math.round(Number(profile.weight))} kg.`
+        : "";
 
       const promptText = `You are Nourish, a supportive, warm, calm, and judgement-free nutrition companion. Analyze the following meal description and return ONLY a valid JSON object (no markdown formatting, no code blocks) with these exact keys:
-- calories (number)
+- calories (number, FOOD only. never subtract exercise)
 - protein (number, grams)
 - carbs (number, grams)
 - fat (number, grams)
 - fiber (number, grams)
 - sodium (number, mg)
 - potassium (number, mg)
+- caloriesBurned(whole number: estimated calories burned by any exercise or activity mentioned, such as hikes, runs, or workouts. Use 0 if no activity is mentioned. Do not count everyday movement. Be conservative.)
 - encouragingNote (string, short warm sentence)
 
-Meal description: "${message}"`;
+${weightLine}
+Description: "${message}"`;
 
       const response = await fetch(url, {
         method: "POST",
@@ -68,11 +75,14 @@ Meal description: "${message}"`;
       }
 
       const geminiResults = JSON.parse(cleaned);
-      console.log("PARSED:", geminiResults);
+      const caloriesBurned = Math.min(
+        3000,
+        Math.max(0, Math.round(Number(geminiResults.caloriesBurned) || 0)),
+      );
 
       const newPendingLog = await createMealLogWithNutrients(
         req.user.id,
-        { mealDescription: message, status: "pending" },
+        { mealDescription: message, status: "pending", caloriesBurned },
         geminiResults,
       );
 

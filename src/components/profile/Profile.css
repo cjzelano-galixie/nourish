@@ -1,0 +1,39 @@
+.profile-page {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 16px;
+  display: grid;
+  gap: 16px;
+}
+.profile-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(62, 42, 31, 0.06);
+}
+.targets-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+.targets-list li {
+  display: flex;
+  justify-content: space-between;
+}
+.profile-form {
+  display: grid;
+  gap: 16px;
+}
+.field-hint {
+  font-size: 14px;
+  color: #7a6657;
+  margin: 4px 0 8px;
+}
+.form-error {
+  color: #a25a38;
+}
+.form-saved {
+  color: var(--nourish-fern);
+}

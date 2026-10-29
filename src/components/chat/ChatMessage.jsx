@@ -1,7 +1,7 @@
 /**
  * Renders an individual chat message bubble for either the user or the AI, displaying nutrient estimates, encouraging notes, and approval actions.
  */
-export default function ChatMessage({ message, onApproveMeal }) {
+export default function ChatMessage({ message, onApproveMeal, onDiscardMeal }) {
   const isUser = message.sender === "user";
 
   return (
@@ -24,14 +24,29 @@ export default function ChatMessage({ message, onApproveMeal }) {
                   <li>Fiber: {message.meal.fiber}g</li>
                   <li>Sodium: {message.meal.sodium}mg</li>
                   <li>Potassium: {message.meal.potassium}mg</li>
+                  {message.meal.caloriesBurned > 0 && (
+                    <li>
+                      Estimated Activity: ~{message.meal.caloriesBurned} kcal
+                      burned
+                    </li>
+                  )}
                 </ul>
                 {message.meal.status === "pending" && (
-                  <button
-                    className="approve-meal-btn"
-                    onClick={() => onApproveMeal(message.meal)}
-                  >
-                    Approve & Log Meal ✓
-                  </button>
+                  <div className="meal-actions">
+                    <button
+                      className="approve-meal-btn"
+                      onClick={() => onApproveMeal(message.meal)}
+                    >
+                      Approve & Log Meal ✓
+                    </button>
+
+                    <button
+                      className="discard-meal-btn"
+                      onClick={() => onDiscardMeal(message.meal)}
+                    >
+                      Not quite, discard
+                    </button>
+                  </div>
                 )}
               </div>
             )}

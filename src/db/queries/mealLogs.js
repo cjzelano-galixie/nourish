@@ -13,14 +13,15 @@ export async function createMealLogWithNutrients(
       await client.query("BEGIN");
 
       const mealQuery = `
-        INSERT INTO meal_logs (user_id, meal_description, status)
-        VALUES ($1, $2, $3)
+        INSERT INTO meal_logs (user_id, meal_description, status, calories_burned)
+        VALUES ($1, $2, $3, $4)
         RETURNING *;`;
 
       const mealValues = [
         userId,
         mealData.mealDescription,
         mealData.status || "approved",
+        mealData.caloriesBurned ?? 0,
       ];
       const mealResult = await client.query(mealQuery, mealValues);
       const newMealLog = mealResult.rows[0];
@@ -75,6 +76,7 @@ export async function getMealLogsByUserId(userId) {
         m.meal_description,
         m.status,
         m.logged_at,
+        m.calories_burned,
         n.id AS nutrient_id,
         n.calories,
         n.protein,
@@ -102,6 +104,7 @@ export async function getMealLogsById(id) {
         m.meal_description,
         m.status,
         m.logged_at,
+        m.calories_burned,
         n.id AS nutrient_id,
         n.calories,
         n.protein,

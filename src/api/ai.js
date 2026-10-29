@@ -21,13 +21,13 @@ router.post(
         : "";
 
       const promptText = `You are Nourish, a supportive, warm, calm, and judgement-free nutrition companion. Analyze the following meal description and return ONLY a valid JSON object (no markdown formatting, no code blocks) with these exact keys:
-- calories (number, FOOD only. never subtract exercise)
-- protein (number, grams)
-- carbs (number, grams)
-- fat (number, grams)
-- fiber (number, grams)
-- sodium (number, mg)
-- potassium (number, mg)
+- calories (whole number only, FOOD only. never subtract exercise)
+- protein (whole number only, grams)
+- carbs (whole number only, grams)
+- fat (whole number only, grams)
+- fiber (whole number only, grams)
+- sodium (whole number only, mg)
+- potassium (whole number only, mg)
 - caloriesBurned(whole number: estimated calories burned by any exercise or activity mentioned, such as hikes, runs, or workouts. Use 0 if no activity is mentioned. Do not count everyday movement. Be conservative.)
 - encouragingNote (string, short warm sentence)
 

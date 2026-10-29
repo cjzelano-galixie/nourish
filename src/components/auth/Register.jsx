@@ -87,7 +87,7 @@ export default function Register() {
     <main className="auth-page">
       <img
         className="auth-logo"
-        src={`${import.meta.env.BASE_URL}/img/wordmark.png`}
+        src={`${import.meta.env.BASE_URL}img/wordmark.png`}
         alt="Nourish: Better choices. Brighter days."
       />
 

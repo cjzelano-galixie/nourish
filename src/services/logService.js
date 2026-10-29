@@ -16,8 +16,8 @@ const getAuthHeaders = () => {
 /**
  * Fetches all pending meal logs for the authenticated user from the backend API.
  */
-export async function getPendingLogs() {
-  const response = await fetch(API + "/logs", {
+export async function getPendingLogs(days = 60) {
+  const response = await fetch(API + "/logs?days=" + days, {
     method: "GET",
     headers: getAuthHeaders(),
   });

@@ -72,9 +72,7 @@ router.post(
  */
 router.get("/", getUserFromToken, async (req, res, next) => {
   try {
-    const d = Number(req.query.days);
-    const days = Number.isInteger(d) && d > 0 && d <= 366 ? d : undefined;
-    const mealLog = await getMealLogsByUserId(req.user.id, days);
+    const mealLog = await getMealLogsByUserId(req.user.id);
     res.status(200).json(mealLog);
   } catch (err) {
     next(err);

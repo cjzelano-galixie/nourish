@@ -23,7 +23,7 @@
     "db:seed": "node --env-file=.env src/db/seed.js",
     "db:reset": "npm run db:schema && npm run db:seed",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
     "@google/genai": "^2.31.0",

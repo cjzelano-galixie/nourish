@@ -20,7 +20,7 @@ export default function ChatInput({ onSendMessage, isLoading }) {
         type="text"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        placeholder="Describe your meal..."
+        placeholder="e.g. waffles for breakfast, then a 2-hr hike"
         disabled={isLoading}
       />
       <button type="submit" disabled={isLoading || !message.trim()}>

@@ -58,7 +58,7 @@ export default function Layout() {
           onDeleteMeal={handleDeleteLog}
         />
         <WelcomeModal />
-        <Outlet context={{ refreshLogs, profile, setProfile, logs }} />
+        <Outlet context={{ refreshLogs, profile, setProfile }} />
       </main>
     </>
   );

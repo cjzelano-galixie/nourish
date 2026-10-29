@@ -147,7 +147,7 @@ function ProfileForm({ profile, onSaved }) {
         weight: Number(weightKg.toFixed(2)),
         height: Number(height.toFixed(1)),
         sex,
-        activity_level: Number(activity),
+        activityLevel: Number(activity),
         targetCalories:
           calorieMode === "custom" ? Number(customCalories) : null,
       });
@@ -306,20 +306,20 @@ function ProfileForm({ profile, onSaved }) {
             required
           />
         )}
-        <button type="submit" disabled={saving}>
-          {saving ? "Saving..." : "Save my baseline"}
-        </button>
-        {error && (
-          <p role="alert" className="form-error">
-            {error}
-          </p>
-        )}
-        {saved && (
-          <p role="status" className="form-saved">
-            Your targets are updated
-          </p>
-        )}
       </fieldset>
+      <button type="submit" disabled={saving}>
+        {saving ? "Saving..." : "Save my baseline"}
+      </button>
+      {error && (
+        <p role="alert" className="form-error">
+          {error}
+        </p>
+      )}
+      {saved && (
+        <p role="status" className="form-saved">
+          Your targets are updated
+        </p>
+      )}
     </form>
   );
 }

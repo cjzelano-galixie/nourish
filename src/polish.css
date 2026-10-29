@@ -443,7 +443,7 @@ input {
   z-index: 60;
 }
 
-button[type="submit"]:disabled::after {
+button[type="submit"][aria-busy="true"]::after {
   content: "";
   display: inline-block;
   width: 14px;

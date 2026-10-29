@@ -23,7 +23,11 @@ export default function ChatInput({ onSendMessage, isLoading }) {
         placeholder="Describe your meal..."
         disabled={isLoading}
       />
-      <button type="submit" disabled={isLoading || !message.trim()}>
+      <button
+        type="submit"
+        disabled={isLoading || !message.trim()}
+        aria-busy={isLoading}
+      >
         {isLoading ? "Analyzing..." : "Send"}
       </button>
     </form>

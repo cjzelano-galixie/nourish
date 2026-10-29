@@ -181,7 +181,7 @@ export default function Register() {
               Target Calories (optional)
               <input type="number" name="target-calories" />
             </label>
-            <button type="submit" disabled={isLoading}>
+            <button type="submit" disabled={isLoading} aria-busy={isLoading}>
               {isLoading ? "Calculating Baseline..." : "Calculate my baseline"}
             </button>
             {slow && (

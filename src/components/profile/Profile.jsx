@@ -307,7 +307,7 @@ function ProfileForm({ profile, onSaved }) {
           />
         )}
       </fieldset>
-      <button type="submit" disabled={saving}>
+      <button type="submit" disabled={saving} aria-busy={saving}>
         {saving ? "Saving..." : "Save my baseline"}
       </button>
       {error && (

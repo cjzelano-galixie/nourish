@@ -1,23 +1,34 @@
 /* --- Global Reset & Theme --- */
 :root {
-  --bg-color: var(--nourish-cream);
+  --bg-color: #faf6f5;
   --card-bg: #ffffff;
-  --primary-color: var(--nourish-fern);
-  --accent-color: var(--nourish-terracotta);
-  --input-bg: #fbf8f1;
-  --border-color: #e2d9c6;
-  --text-main: var(--nourish-espresso);
-  --error-color: var(--nourish-terracotta-deep);
+  --primary-color: #4a2e35;
+  --accent-color: #2e6f40;
+  --input-bg: #fcf1f2;
+  --border-color: #e6d3d5;
+  --text-main: #2d2326;
+  --error-color: #b33939;
 }
+
 body {
   margin: 0;
-  font-family: var(--font-sans);
+  padding: 0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, sans-serif;
   background-color: var(--bg-color);
   color: var(--text-main);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
 }
-.auth-container {
-  margin: 6vh auto;
+
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* --- Authentication & Wizard Card Container --- */
@@ -159,7 +170,7 @@ button[type="submit"],
 
 button[type="submit"]:hover,
 .baseline-review-card button:hover {
-  background-color: #465a33;
+  background-color: #382127;
 }
 
 button[type="submit"]:disabled {
@@ -185,7 +196,7 @@ button[type="submit"]:disabled {
 }
 
 [role="alert"] {
-  background-color: rgba(183, 106, 69, 0.12);
+  background-color: #f8d7da;
   color: var(--error-color);
   padding: 0.75rem;
   border-radius: 6px;

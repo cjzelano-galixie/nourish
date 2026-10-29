@@ -11,6 +11,17 @@ export default function ChatFeed({
 }) {
   return (
     <div className="chat-feed">
+      {messages.length === 0 && !isLoading && (
+        <div className="chat-empty">
+          <img src="/img/icon-sm.png" alt="" width="72" height="72" />
+          <h2>What have you eaten today?</h2>
+          <p>
+            Type it like you'd say it, like "oats with blueberries for
+            breakfast." Add a walk or workout and I'll estimate that too.
+          </p>
+        </div>
+      )}
+      ;
       {messages.map((msg, index) => (
         <ChatMessage
           key={index}

@@ -26,7 +26,6 @@ export default function ChatFeed({
           </p>
         </div>
       )}
-      ;
       {messages.map((msg, index) => (
         <ChatMessage
           key={index}

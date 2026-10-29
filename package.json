@@ -21,7 +21,9 @@
     "migrate:down": "node-pg-migrate down",
     "db:schema": "psql -d nourish -f src/db/schema.sql",
     "db:seed": "node --env-file=.env src/db/seed.js",
-    "db:reset": "npm run db:schema && npm run db:seed"
+    "db:reset": "npm run db:schema && npm run db:seed",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@google/genai": "^2.31.0",
@@ -47,6 +49,7 @@
     "eslint": "^10.10.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.6",
+    "gh-pages": "^6.3.0",
     "globals": "^17.12.0",
     "nodemon": "^3.1.14",
     "vite": "^8.3.0"

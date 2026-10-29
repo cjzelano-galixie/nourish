@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap");
+:root {
+  --nourish-espresso: #3e2a1f;
+  --nourish-fern: #556b3f;
+  --nourish-sage: #a7b89a;
+  --nourish-terracotta: #b76a45;
+  --nourish-terracotta-deep: #a25a38;
+  --nourish-cream: #f7f3e9;
+  --nourish-surface-light: #ffffff;
+  --nourish-track: #e3e8da;
+  --color-bg: var(--nourish-cream);
+  --color-text: var(--nourish-espresso);
+  --color-text-muted: #7a6657;
+  --color-primary-hover: #465a33;
+  --font-sans: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --radius-md: 12px;
+  --radius-pill: 9999px;
+  --shadow-card: 0 4px 20px rgba(62, 42, 31, 0.06);
+  --ease-soft: cubic-bezier(0.25, 0.8, 0.25, 1);
+  --dur-fast: 150ms;
+  --dur-base: 220ms;
+}

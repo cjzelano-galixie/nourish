@@ -68,8 +68,15 @@ export async function createMealLogWithNutrients(
   });
 }
 
-export async function getMealLogsByUserId(userId) {
-  const query = `
+export async function getMealLogsByUserId(userId, days) {
+  const params = [userId];
+  let where = `WHERE m.user_id = $1`;
+  if (days) {
+    params.push(days);
+    where += ` AND m.logged_at >= NOW() - make_interval(days => $2::int)`;
+  }
+  const result = await pool.query(
+    `
         SELECT
         m.id AS meal_id,
         m.user_id,
@@ -87,10 +94,11 @@ export async function getMealLogsByUserId(userId) {
         n.potassium
         FROM meal_logs m
         LEFT JOIN log_nutrients n ON m.id = n.meal_log_id
-        WHERE m.user_id = $1
+        ${where}
         ORDER BY m.logged_at DESC;
-        `;
-  const result = await pool.query(query, [userId]);
+        `,
+    params,
+  );
   return result.rows;
 }
 

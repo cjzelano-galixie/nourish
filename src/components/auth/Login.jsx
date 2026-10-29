@@ -26,23 +26,28 @@ export default function Login() {
   };
 
   return (
-    <article className="auth-container">
-      <h2>🌱 Nourish</h2>
-      <p>Better Choices. Brighter Days.</p>
-      <h1>Welcome Back</h1>
-      <form action={tryLogin} className="auth-form">
-        <label>
-          Email Address <input type="email" name="email" required />
-        </label>
-        <label>
-          Password <input type="password" name="password" required />
-        </label>
-        <button type="submit">Sign In</button>
-        {error && <p role="alert">{error}</p>}
-      </form>
-      <div className="auth-link-text">
-        <Link to="/register">Need an account? Register here → </Link>
-      </div>
-    </article>
+    <main className="auth-page">
+      <img
+        className="auth-logo"
+        src="/img/wordmark.png"
+        alt="Nourish: Better choices. Brighter days."
+      />
+      <article className="auth-container">
+        <h1>Welcome Back</h1>
+        <form action={tryLogin} className="auth-form">
+          <label>
+            Email Address <input type="email" name="email" required />
+          </label>
+          <label>
+            Password <input type="password" name="password" required />
+          </label>
+          <button type="submit">Sign In</button>
+          {error && <p role="alert">{error}</p>}
+        </form>
+        <div className="auth-link-text">
+          <Link to="/register">Need an account? Register here → </Link>
+        </div>
+      </article>
+    </main>
   );
 }

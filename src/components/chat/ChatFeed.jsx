@@ -13,7 +13,12 @@ export default function ChatFeed({
     <div className="chat-feed">
       {messages.length === 0 && !isLoading && (
         <div className="chat-empty">
-          <img src="/img/icon-sm.png" alt="" width="72" height="72" />
+          <img
+            src={`${import.meta.env.BASE_URL}img/icon-sm.png`}
+            alt=""
+            width="72"
+            height="72"
+          />
           <h2>What have you eaten today?</h2>
           <p>
             Type it like you'd say it, like "oats with blueberries for

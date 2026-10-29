@@ -1,6 +1,6 @@
 import { AppError, ForbiddenError, NotFoundError } from "#utils/errors";
 
-const API = import.meta.env.VITE_API;
+const API = import.meta.env.VITE_API || "https://nourish-zryq.onrender.com/api";
 
 /**
  * Generates authorization headers containing the user's JWT token for secure API requests.

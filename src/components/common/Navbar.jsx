@@ -10,7 +10,12 @@ export default function Navbar({ totals, profile, meals, onDeleteMeal }) {
     <>
       <header className="navbar">
         <Link to="/ai" className="navbar-brand" aria-label="Nourish home">
-          <img src="/img/icon-sm.png" alt="" width="36" height="36" />
+          <img
+            src={`${import.meta.env.BASE_URL}img/icon-sm.png`}
+            alt=""
+            width="36"
+            height="36"
+          />
           <span>Nourish</span>
         </Link>
         <div className="navbar-right">

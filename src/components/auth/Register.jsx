@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -14,6 +14,16 @@ export default function Register() {
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [slow, setSlow] = useState(false);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setSlow(false);
+      return;
+    }
+    const t = setTimeout(() => setSlow(true), 3000);
+    return () => clearTimeout(t);
+  }, [isLoading]);
 
   const tryRegister = async (formData) => {
     setError(null);
@@ -77,7 +87,7 @@ export default function Register() {
     <main className="auth-page">
       <img
         className="auth-logo"
-        src="/img/wordmark.png"
+        src={`${import.meta.env.BASE_URL}/img/wordmark.png`}
         alt="Nourish: Better choices. Brighter days."
       />
 
@@ -174,6 +184,12 @@ export default function Register() {
             <button type="submit" disabled={isLoading}>
               {isLoading ? "Calculating Baseline..." : "Calculate my baseline"}
             </button>
+            {slow && (
+              <p role="status" className="slow-note">
+                Still working. The server is waking up, which can take up to a
+                minute the first time. Thanks for waiting!
+              </p>
+            )}
             {error && <p role="alert">{error}</p>}
           </form>
         ) : (
